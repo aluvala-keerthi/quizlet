@@ -59,7 +59,7 @@ if not remaining_questions:
 if not st.session_state.quiz_started:
     # Time before answer reveal
     st.session_state.answer_time = st.number_input(
-        "Enter time (in seconds) before the answer is revealed:",
+        "Enter time (in seconds) after which it should move to next question:",
         min_value=1, max_value=20, value=5, step=1
     )
     
@@ -118,7 +118,7 @@ if st.session_state.selected_questions is not None:
             st.session_state.answer_shown = True
             answer_placeholder.markdown(f"### **Answer:** {current_question['answer']}")
             # Wait 5 seconds then move to next question
-            time.sleep(5)
+            time.sleep(st.session_state.answer_time)
             st.session_state.answer_shown = False
             st.session_state.progress["current_index"] += 1
             st.session_state.start_time = time.time()
